@@ -16,9 +16,9 @@ cl %CommonCompilerFlags% ..\code\win32_layer.cpp -Fmwin32_syspec.map /link %Comm
 popd
 
 pushd ..\rundir\assets
-set name=phong
-fxc -nologo -Tvs_5_0 -DVERTEX_HLSL=1 -DPIXEL_HLSL=0 ..\..\code\phong.hlsl -Fo%name%v.tmp
-fxc -nologo -Tps_5_0 -DVERTEX_HLSL=0 -DPIXEL_HLSL=1 ..\..\code\phong.hlsl -Fo%name%p.tmp
+set name=rect
+fxc -nologo -Tvs_5_0 -DVERTEX_HLSL=1 -DPIXEL_HLSL=0 ..\..\code\rect.hlsl -Fo%name%v.tmp
+fxc -nologo -Tps_5_0 -DVERTEX_HLSL=0 -DPIXEL_HLSL=1 ..\..\code\rect.hlsl -Fo%name%p.tmp
 move /Y %name%v.tmp %name%.vsh
 move /Y %name%p.tmp %name%.psh
 

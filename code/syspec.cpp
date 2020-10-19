@@ -38,7 +38,9 @@ GAME_UPDATE_AND_RENDER(UpdateAndRender)
         //
         // @todo: remove need for pre-allocation
         state->font_shader  = push_struct(&mempool, Platform_Shader);
+        state->rect_shader  = push_struct(&mempool, Platform_Shader);
         renderer->reload_shader(state->font_shader, renderer, "fonts");
+        renderer->reload_shader(state->rect_shader, renderer, "rect");
         
         renderer->init_square_mesh(renderer, state->font_shader);
         load_font(&state->inconsolata, memory->read_file, "assets/Inconsolata.ttf", 32);
@@ -60,6 +62,7 @@ GAME_UPDATE_AND_RENDER(UpdateAndRender)
 
 #if SYSPEC_INTERNAL
     renderer->reload_shader(state->font_shader,  renderer, "fonts");
+    renderer->reload_shader(state->rect_shader,  renderer, "rect");
 #endif
     d11->context->OMSetRenderTargets(1, &d11->render_target_rgb, d11->render_target_depth);
 
@@ -67,10 +70,21 @@ GAME_UPDATE_AND_RENDER(UpdateAndRender)
     d11->context->ClearRenderTargetView(d11->render_target_rgb, ClearColor);
     d11->context->ClearDepthStencilView(d11->render_target_depth, D3D11_CLEAR_DEPTH, 1.f, 1);
 
-    //renderer->set_active_shader(context, phong_shader);
-
     d11->context->OMSetDepthStencilState(d11->depth_nostencil_state, 1);
 
     char *text = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz\n0123456789 ?!\"'.,;<>[]{}()-_+=*&^%$#@/\\~`";
     renderer->draw_text(renderer, state->font_shader, &state->inconsolata, text, make_v2(0, 0));
+
+    r32 n_frequencies = 50.f;
+    for (r32 x = 0.f; x < 1.f; x += 1.f/n_frequencies)
+    {
+        v2 size = {};
+        size.x = 1.f/n_frequencies*(r32)WIDTH;
+        size.y = Sin(x*PI)*0.8f*(r32)HEIGHT;
+        v2 pos = {};
+        pos.x = x*(r32)WIDTH;
+        pos.y = (r32)HEIGHT-size.y;
+
+        renderer->draw_rect(renderer, state->rect_shader, size, pos);
+    }
 }

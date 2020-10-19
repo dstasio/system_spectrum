@@ -52,25 +52,11 @@ struct Dir_Light
  
 struct Game_State
 {
-    Platform_Shader  *phong_shader;
+    Platform_Shader  *rect_shader;
     Platform_Shader  *font_shader;
 
-    Mesh     environment;
-    Mesh     player;
-    Platform_Texture  tex_white;
-    Platform_Texture  tex_yellow;
+//    Platform_Texture  tex_white;
     Platform_Font     inconsolata;
-
-    m4      cam_matrix;
-    m4      proj_matrix;
-
-    Camera  main_cam;
-    r32     cam_radius;
-    r32     cam_vtheta;
-    r32     cam_htheta;
-
-    Dir_Light    sun_;
-    Point_Light  lamp;
 };
 
 struct Memory_Pool

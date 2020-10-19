@@ -300,6 +300,7 @@ inline PLATFORM_SET_ACTIVE_SHADER(d3d11_set_active_shader)
 inline PLATFORM_DRAW_RECT(d3d11_draw_rect)
 {
     D11_Renderer *d11 = (D11_Renderer *)renderer->platform;
+    renderer->set_active_shader(renderer, shader);
 
     D3D11_MAPPED_SUBRESOURCE matrices_map = {};
     d11->context->Map(d11->matrix_buff, 0, D3D11_MAP_WRITE_DISCARD, 0, &matrices_map);
