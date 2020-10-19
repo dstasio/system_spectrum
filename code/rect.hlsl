@@ -22,6 +22,16 @@ VS_OUTPUT main(VS_INPUT input)
     VS_OUTPUT output;
     output.pos = mul(model, float4(input.pos.xy, 0.f, 1.f));
     output.txc = input.txc;
+    if (input.txc.x <= 0.5f)
+    {
+        output.txc.x = 1.f;//input.pos.x;
+        output.txc.y = 0.1f;
+    }
+    else
+    {
+        output.txc.x = 0.1f;//input.pos.x;
+        output.txc.y = 1.f;
+    }
 
     return output;
 }
@@ -30,11 +40,7 @@ VS_OUTPUT main(VS_INPUT input)
 
 float4 main(VS_OUTPUT input) : SV_TARGET
 {
-    float4 color = float4(0.f, 0.8f, 0.f, 1.f);
-    if (input.txc.x <= 0.5f)
-    {
-        color.x = input.pos.x;
-    }
+    float4 color = float4(input.txc.x, 0.f, input.txc.y, 1.f);
     return color;
 }
 
