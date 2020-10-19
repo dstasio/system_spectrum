@@ -78,9 +78,10 @@ GAME_UPDATE_AND_RENDER(UpdateAndRender)
     r32 n_frequencies = 50.f;
     for (r32 x = 0.f; x < 1.f; x += 1.f/n_frequencies)
     {
+        r32 func = Sin(x*2.f*PI-PI*0.5f)*0.5f + 0.5f;//Sin(x*PI);
         v2 size = {};
         size.x = 1.f/n_frequencies*(r32)WIDTH;
-        size.y = Sin(x*PI)*0.8f*(r32)HEIGHT;
+        size.y = 0.7f*func*(r32)HEIGHT;
         v2 pos = {};
         pos.x = x*(r32)WIDTH;
         pos.y = (r32)HEIGHT-size.y;
