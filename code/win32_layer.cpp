@@ -197,6 +197,7 @@ PLATFORM_RELOAD_CHANGED_FILE(win32_reload_file_if_changed)
 }
 
 #include "win32_renderer_d3d11.cpp"
+#include "win32_audio_capture.cpp"
 
 LRESULT CALLBACK syspec_proc(
     HWND   WindowHandle,
@@ -404,24 +405,24 @@ WinMain(
 
                         case WM_INPUT:
                         {
-//                            if (!in_menu)
-//                            {
-//                                RAWINPUT raw_input = {};
-//                                u32 raw_size = sizeof(raw_input);
-//                                GetRawInputData((HRAWINPUT)Message.lParam, RID_INPUT, &raw_input, &raw_size, sizeof(RAWINPUTHEADER));
-//                                RAWMOUSE raw_mouse = raw_input.data.mouse;
-//                                if (raw_mouse.usFlags == MOUSE_MOVE_RELATIVE)
-//                                {
-//                                    input.dmouse.x = raw_mouse.lLastX;
-//                                    input.dmouse.y = raw_mouse.lLastY;
-//                                }
+                            if (!in_menu)
+                            {
+                                RAWINPUT raw_input = {};
+                                u32 raw_size = sizeof(raw_input);
+                                GetRawInputData((HRAWINPUT)Message.lParam, RID_INPUT, &raw_input, &raw_size, sizeof(RAWINPUTHEADER));
+                                RAWMOUSE raw_mouse = raw_input.data.mouse;
+                                if (raw_mouse.usFlags == MOUSE_MOVE_RELATIVE)
+                                {
+                                    input.dmouse.x = raw_mouse.lLastX;
+                                    input.dmouse.y = raw_mouse.lLastY;
+                                }
 
-//                                if (raw_mouse.usButtonFlags & RI_MOUSE_WHEEL)
-//                                {
-//                                    input.dwheel = raw_mouse.usButtonData;
-//                                }
-//                                SetCursorPos((window_rect.right - window_rect.left)/2, (window_rect.bottom - window_rect.top)/2);
-//                            }
+                                if (raw_mouse.usButtonFlags & RI_MOUSE_WHEEL)
+                                {
+                                    input.dwheel = raw_mouse.usButtonData;
+                                }
+                                SetCursorPos((window_rect.right - window_rect.left)/2, (window_rect.bottom - window_rect.top)/2);
+                            }
                         } break;
 
                         //case WM_MOUSEMOVE:
